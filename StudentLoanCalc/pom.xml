@@ -55,7 +55,7 @@
 		<!-- Generic properties -->
 		<java.version>1.17</java.version>
 		<JavaFX.Version>17.0.1</JavaFX.Version>
-		<JavaFX.Platform>win</JavaFX.Platform>
+		<JavaFX.Platform>mac</JavaFX.Platform>
 		<!-- <JavaFX.Platform>mac</JavaFX.Platform> -->
 		<!-- <JavaFX.Platform>linux</JavaFX.Platform> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

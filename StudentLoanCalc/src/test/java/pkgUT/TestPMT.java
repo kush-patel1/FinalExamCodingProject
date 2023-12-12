@@ -47,10 +47,9 @@ public class TestPMT {
 
 		Loan loan = new Loan(dLoanAmount, dInterestRate, iNbrOfYears, localDate, dAdditionalPayment, dEscrow);
 
-		//TODO: Once you get Loan to work, make sure these tests work:
-		//assertTrue(loan.getLoanPayments().size() == 240);
-		//assertEquals(loan.getTotalPayments(), 93033.62, 0.01);
-		//assertEquals(loan.getTotalInterest(), 43035.87, 0.01);
+		assertTrue(loan.getLoanPayments().size() == 240);
+		assertEquals(loan.getTotalPayments(), 93033.62, 0.01);
+		assertEquals(loan.getTotalInterest(), 43035.87, 0.01);
 	}
 	
 	@Test
@@ -66,8 +65,11 @@ public class TestPMT {
 
 		Loan loan = new Loan(dLoanAmount, dInterestRate, iNbrOfYears, localDate, dAdditionalPayment, dEscrow);
 
-		//TODO: Assert correct values based on amort spreadsheet (total payments, total payment amt, 
-		//		total interest, total interest saved, total payments saved.
+		
+		assertTrue(loan.getLoanPayments().size() == 119);
+		assertEquals(loan.getTotalPayments(), 69291.83, 0.01);
+		assertEquals(loan.getTotalInterest(), 19291.85, 0.01);
+		
 	}	
 }
 

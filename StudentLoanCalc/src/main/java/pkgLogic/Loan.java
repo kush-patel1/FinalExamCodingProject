@@ -32,28 +32,79 @@ public class Loan {
 		double RemainingBalance = LoanAmount;
 		int PaymentCnt = 1;
 		
-		//TODO: Create a payment until 'remaining balance' is < PMT + Additional Payment
-		//		Hint: use while loop
-
-		//TODO: Create final payment (last payment might be partial payment)
+		if (AdditionalPayment == 0){
+			int i = 0;
+			
+			while(RemainingBalance > GetPMT()) {
+				Payment p1 = new Payment(RemainingBalance, PaymentCnt, StartDate.plusMonths(i), this, false);
+				loanPayments.add(p1);
+				
+				//RemainingBalance = RemainingBalance - (GetPMT() + AdditionalPayment);
+				RemainingBalance -= p1.getPrinciple();
+				i++;
+				PaymentCnt++;
+			}
+			
+			Payment finalPayment = new Payment(RemainingBalance, PaymentCnt, StartDate.plusMonths(i), this, true);
+			loanPayments.add(finalPayment);
+		}
+		
+		else {
+			int i = 0;
+			while(RemainingBalance > GetPMT() + AdditionalPayment) {
+				Payment p1 = new Payment(RemainingBalance, PaymentCnt, StartDate.plusMonths(i), this, false);
+				loanPayments.add(p1);
+				
+				RemainingBalance -= p1.getPrinciple();
+				i++;
+				PaymentCnt++;
+			}
+			
+			Payment finalPayment = new Payment(RemainingBalance, PaymentCnt, StartDate.plusMonths(i), this, true);
+			loanPayments.add(finalPayment);
+			
+			RemainingBalance -= finalPayment.getPrinciple();
+			PaymentCnt++;
+			i++;
+			
+			Payment finalPayment2 = new Payment(RemainingBalance, PaymentCnt, StartDate.plusMonths(i), this, true);
+			loanPayments.add(finalPayment2);
+			
+			
+		}
+				
+		
+		
+		
+		
 	}
 
 	public double GetPMT() {
 		double PMT = 0;
-		//TODO: Calculate PMT (use FinanceLib.pmt)
+		double r = InterestRate / 12;
+		double n = LoanPaymentCnt;
+		double p = LoanAmount;
+		double f = 0;
+		boolean t = false;
+		PMT = FinanceLib.pmt(r, n, p, f, t);
 		return Math.abs(PMT);
 	}
 
 	public double getTotalPayments() {
 		double tot = 0;
-		//TODO: Calculate total payments
+		for (Payment p : loanPayments) {
+			tot += p.getPayment();
+		}
 		return tot;
 	}
 
 	public double getTotalInterest() {
 
 		double interest = 0;
-		//TODO: Calculate total Interest
+		for (Payment p : loanPayments) {
+			interest += p.getInterestPayment();
+		}
+		
 		return interest;
 
 	}
@@ -61,7 +112,9 @@ public class Loan {
 	public double getTotalEscrow() {
 
 		double escrow = 0;
-		//TODO: Calculate total escrow
+		for (Payment p : loanPayments) {
+			escrow += p.getEscrowPayment();
+		}
 		return escrow;
 
 	}
